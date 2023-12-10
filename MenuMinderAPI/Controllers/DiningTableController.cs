@@ -13,9 +13,9 @@ namespace MenuMinderAPI.Controllers
     public class DiningTableController : ControllerBase
     {
         private readonly DiningTableService _diningTableService;
-        private readonly ILogger<DiningTableRepository> _logger;
+        private readonly ILogger<DiningTableController> _logger;
 
-        public DiningTableController(DiningTableService diningTableService, ILogger<DiningTableRepository> logger)
+        public DiningTableController(DiningTableService diningTableService, ILogger<DiningTableController> logger)
         {
             this._diningTableService = diningTableService;
             this._logger = logger;

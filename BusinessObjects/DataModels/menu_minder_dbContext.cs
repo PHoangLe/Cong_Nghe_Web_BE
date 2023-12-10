@@ -340,8 +340,8 @@ namespace BusinessObjects.DataModels
                 entity.HasOne(d => d.Permission)
                     .WithMany(p => p.Permits)
                     .HasForeignKey(d => d.PermissionId)
-                    .HasConstraintName("fk_permit_permission");
-            });
+                 .HasConstraintName("fk_permit_permission");
+            });   
 
             modelBuilder.Entity<Reservation>(entity =>
             {

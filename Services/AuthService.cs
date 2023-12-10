@@ -37,7 +37,7 @@ namespace Services
             try
             {
                 // query exist account by email
-                Account accountExists = await this._accountRepository.getAccountByEmail(dataLoginInvo.Email);
+                Account accountExists = await this._accountRepository.getAccountEntityByEmail(dataLoginInvo.Email);
                 GetAuthAccountDto accountExistMap = this._mapper.Map<Account, GetAuthAccountDto>(accountExists);
 
                 // check email exist

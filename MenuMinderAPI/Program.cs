@@ -30,6 +30,16 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddLogging();
 builder.Logging.AddConsole();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy",
+        builder => builder
+             .SetIsOriginAllowed(_ => true)
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials());
+});
+
 // Configure JWT scheama
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -57,6 +67,9 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<DiningTableRepository, DiningTableRepository>();
 builder.Services.AddScoped<FoodRepository, FoodRepository>();
 builder.Services.AddScoped<CategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<PermissionRepository, PermissionRepository>();
+builder.Services.AddScoped<AccountRepository, AccountRepository>();
+builder.Services.AddScoped<PermitRepository, PermitRepository>();
 
 // configure DI for DBContext
 builder.Services.AddScoped<Menu_minder_dbContext, Menu_minder_dbContext>();
@@ -64,6 +77,10 @@ builder.Services.AddScoped<Menu_minder_dbContext, Menu_minder_dbContext>();
 // configure DI for application repositories
 builder.Services.AddScoped<IDiningTableRepository, DiningTableRepository>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IFoodRepository, FoodRepository>();
+builder.Services.AddScoped<IPermissionRepository, PermissionRepository>();
+builder.Services.AddScoped<IPermitRepository, PermitRepository>();
 
 // configure DI for application services
 builder.Services.AddScoped<DiningTableService, DiningTableService>();
@@ -71,8 +88,11 @@ builder.Services.AddScoped<AuthService, AuthService>();
 builder.Services.AddScoped<JwtServices, JwtServices>();
 builder.Services.AddScoped<FoodService, FoodService>();
 builder.Services.AddScoped<CategoryService, CategoryService>();
+builder.Services.AddScoped<AccountService, AccountService>();
+builder.Services.AddScoped<PermissionService, PermissionService>();
 
 var app = builder.Build();
+app.UseCors("CorsPolicy");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
