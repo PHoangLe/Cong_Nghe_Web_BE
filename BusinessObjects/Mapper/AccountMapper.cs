@@ -14,6 +14,11 @@ namespace BusinessObjects.Mapper
     {
         public AccountMapper()
         {
-            CreateMap<Account, ResultAccountDTO>();        }
+            CreateMap<Account, ResultAccountDTO>()
+                .ForMember(dto => dto.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth.HasValue 
+                ? src.DateOfBirth.Value.ToDateTime(new TimeOnly(0, 0, 0)) 
+                : default(DateTime)));
+
+        }
     }
 }

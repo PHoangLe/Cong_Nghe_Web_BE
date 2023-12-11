@@ -28,7 +28,7 @@ namespace BusinessObjects.DTO.AccountDTO
         public string Password { get; set; } = null!;
         public string Name { get; set; } = null!;
         public string Role { get; set; }
-        public DateOnly? DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
         public bool? IsBlock { get; set; }
         public bool? Gender { get; set; }
         public string? PhoneNumber { get; set; }
