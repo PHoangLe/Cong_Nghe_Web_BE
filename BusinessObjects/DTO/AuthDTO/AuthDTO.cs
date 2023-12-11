@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessObjects.DataModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -26,6 +27,7 @@ namespace BusinessObjects.DTO.AuthDTO
         public string Name { get; set; }
         public string? Avatar { get; set; }
         public string AccessToken { get; set; }
+        public List<Permission> Permissions { get; set; } = null!;
     }
 
     public record GetAuthAccountDto

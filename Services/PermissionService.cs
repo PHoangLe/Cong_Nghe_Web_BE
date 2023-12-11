@@ -22,5 +22,10 @@ namespace Services
         {
             return await _permissionRepository.GetAllPermissions();
         }
+        
+        public async Task<List<Permission>> GetPermissionsByUserId(Guid userId)
+        {
+            return await _permissionRepository.GetPermissionsByUserId(userId);
+        }
     }
 }

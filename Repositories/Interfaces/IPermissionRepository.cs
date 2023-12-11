@@ -11,5 +11,6 @@ namespace Repositories.Interfaces
     public interface IPermissionRepository
     {
         public Task<List<Permission>> GetAllPermissions();
+        public Task<List<Permission>> GetPermissionsByUserId(Guid userId);
     }
 }

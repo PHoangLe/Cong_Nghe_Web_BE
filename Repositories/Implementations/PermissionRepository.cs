@@ -40,5 +40,31 @@ namespace Repositories.Implementations
 
             return data;
         }
+
+        public async Task<List<Permission>> GetPermissionsByUserId(Guid userId)
+        {
+            List<Permission> data = new List<Permission>();
+            try
+            {
+                data = await _context.Permits
+                    .Where(p => p.AccountId == userId)
+                    .Join(
+                        _context.Permissions,
+                        permit => permit.PermissionId,
+                        permission => permission.PermissionId,
+                        (permit, permission) => permission
+                    )
+                    .ToListAsync();
+
+
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message);
+                throw;
+            }
+
+            return data;
+        }
     }
 }
