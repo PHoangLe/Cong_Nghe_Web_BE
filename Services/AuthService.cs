@@ -69,6 +69,7 @@ namespace Services
                 ResultLoginDto resultLogin = this._mapper.Map<GetAuthAccountDto, ResultLoginDto>(accountExistMap);
 
                 resultLogin.AccessToken = accessToken;
+                resultLogin.AccountId = accountExists.AccountId;
                 resultLogin.Permissions = permissions;
 
                 return resultLogin;
