@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -9,6 +10,7 @@ using BusinessObjects.DataModels;
 using BusinessObjects.DTO;
 using BusinessObjects.DTO.AuthDTO;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Repositories;
 using Repositories.Interfaces;
 using Services.Exceptions;
@@ -39,7 +41,7 @@ namespace Services
             try
             {
                 // query exist account by email
-                Account accountExists = await this._accountRepository.getAccountEntityByEmail(dataLoginInvo.Email);
+                Account accountExists = await this._accountRepository.getAccountByEmail(dataLoginInvo.Email);
                 GetAuthAccountDto accountExistMap = this._mapper.Map<Account, GetAuthAccountDto>(accountExists);
 
                 // check email exist
@@ -61,10 +63,10 @@ namespace Services
                 }
 
                 // generate AccessToken JWT
-                string accessToken = _jwtService.GenerateToken(accountExistMap.AccountId.ToString(), accountExistMap.Email, accountExistMap.Role);
+                string accessToken = _jwtService.GenerateToken(accountExistMap.AccountId.ToString(), accountExistMap.Email, accountExistMap.Role.ToString());
 
                 // get user Permissions
-                List<Permission> permissions = await _permissionService.GetPermissionsByUserId(accountExists.AccountId);
+                List<PermissonDto> permissions = await _permissionService.GetPermissionsByUserId(accountExists.AccountId);
 
                 ResultLoginDto resultLogin = this._mapper.Map<GetAuthAccountDto, ResultLoginDto>(accountExistMap);
 
@@ -74,7 +76,7 @@ namespace Services
 
                 return resultLogin;
             }
-            catch(BadRequestException ex)
+            catch (BadRequestException ex)
             {
                 throw ex;
             }

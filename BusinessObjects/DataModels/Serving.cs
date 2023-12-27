@@ -17,7 +17,7 @@ namespace BusinessObjects.DataModels
         public Guid CreatedBy { get; set; }
         public int NumberOfCutomer { get; set; }
         public DateTime TimeIn { get; set; }
-        public DateTime TimeOut { get; set; }
+        public DateTime? TimeOut { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 

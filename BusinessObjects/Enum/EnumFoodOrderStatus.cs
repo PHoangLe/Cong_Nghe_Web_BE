@@ -7,14 +7,13 @@ using System.Threading.Tasks;
 
 namespace BusinessObjects.Enum
 {
-    public enum EnumFoodStatus
+    public enum EnumFoodOrderStatus
     {
         [Description("PENDING")]
         PENDING,
-        [Description("HIDDEN")]
-        HIDDEN,
-        [Description("AVAILABLE")]
-        AVAILABLE,
-        DELETED
+        [Description("PROCESSING")]
+        PROCESSING,
+        [Description("SERVED")]
+        SERVED
     }
 }

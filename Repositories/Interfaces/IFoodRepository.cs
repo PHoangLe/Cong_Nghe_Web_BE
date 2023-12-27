@@ -16,6 +16,7 @@ namespace Repositories.Interfaces
         public Task SaveFood(Food food);
         public Task<ResultFoodDto> FindFoodById(int foodId);
         public Task<Food> FindFoodEntityById(int foodId);
+        public Task<List<Food>> FindFoodBelongIds(List<int> Ids);
         public Task UpdateFood(Food food);
         public Task DeleteFood(Food food);
     }

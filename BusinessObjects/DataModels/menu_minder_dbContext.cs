@@ -341,7 +341,7 @@ namespace BusinessObjects.DataModels
                     .WithMany(p => p.Permits)
                     .HasForeignKey(d => d.PermissionId)
                  .HasConstraintName("fk_permit_permission");
-            });   
+            });
 
             modelBuilder.Entity<Reservation>(entity =>
             {
@@ -455,6 +455,16 @@ namespace BusinessObjects.DataModels
                     .HasForeignKey(d => d.TableId)
                     .HasConstraintName("fk_tableused_table");
             });
+
+            // Mapping data type timestamp Postgres
+            // Reservation Entity:
+            modelBuilder.Entity<Reservation>().Property(e => e.ReservationTime).HasColumnType("timestamp without time zone");
+            modelBuilder.Entity<Reservation>().Property(e => e.UpdatedAt).HasColumnType("timestamp without time zone");
+            
+            // Serving Entity:
+            modelBuilder.Entity<Serving>().Property(e => e.UpdatedAt).HasColumnType("timestamp without time zone");
+            modelBuilder.Entity<Serving>().Property(e => e.TimeIn).HasColumnType("timestamp without time zone");
+            modelBuilder.Entity<Serving>().Property(e => e.TimeOut).HasColumnType("timestamp without time zone");
 
             OnModelCreatingPartial(modelBuilder);
         }

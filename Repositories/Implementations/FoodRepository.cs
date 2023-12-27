@@ -173,5 +173,19 @@ namespace Repositories.Implementations
                 throw;
             }
         }
+
+        public async Task<List<Food>> FindFoodBelongIds(List<int> Ids)
+        {
+            try
+            {
+                List<Food> foodResults = await this._context.Foods.Where(food => Ids.Contains(food.FoodId)).ToListAsync();
+                return foodResults;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.ToString());
+                throw;
+            }
+        }
     }
 }

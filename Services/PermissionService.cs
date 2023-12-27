@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.DataModels;
+using BusinessObjects.DTO.AuthDTO;
 using Repositories;
 using Repositories.Implementations;
 using System;
@@ -23,7 +24,7 @@ namespace Services
             return await _permissionRepository.GetAllPermissions();
         }
         
-        public async Task<List<Permission>> GetPermissionsByUserId(Guid userId)
+        public async Task<List<PermissonDto>> GetPermissionsByUserId(Guid userId)
         {
             return await _permissionRepository.GetPermissionsByUserId(userId);
         }

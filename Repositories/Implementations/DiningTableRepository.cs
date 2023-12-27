@@ -34,7 +34,7 @@ namespace Repositories
                 table.Status = EnumTableStatus.DELETED.ToString();
                 await UpdateDiningTable(table);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 _logger.LogError(e.ToString());
                 throw;
@@ -80,9 +80,9 @@ namespace Repositories
         public async Task<List<ResultDiningTableDto>> GetAllDiningTables()
         {
 
-            List <ResultDiningTableDto> data  = new List<ResultDiningTableDto>();
+            List<ResultDiningTableDto> data = new List<ResultDiningTableDto>();
             try
-            { 
+            {
                 data = await _context.DiningTables
                     .Where(diningTable => diningTable.Status != EnumTableStatus.DELETED.ToString())
                     .Select(diningTable => _mapper.Map<ResultDiningTableDto>(diningTable)).ToListAsync();
@@ -121,6 +121,56 @@ namespace Repositories
             {
                 _logger.LogError(e.ToString());
                 throw;
+            }
+        }
+
+        public async Task<List<DiningTable>> GetListTableWithIds(List<int> tableIds)
+        {
+            try
+            {
+                List<DiningTable> listTableResults = await this._context.DiningTables
+                    .Where(table => tableIds.Contains(table.TableId)).ToListAsync();
+
+                return listTableResults;
+            }
+            catch (Exception ex)
+            {
+                this._logger.LogError(ex.ToString());
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task UpdateBulkAvailbleByIds( List<int> tableIds)
+        {
+            try
+            {
+                List<DiningTable> tableUpdate = this._context.DiningTables.Where(tb => tableIds.Contains(tb.TableId)).ToList(); 
+                foreach (DiningTable table in tableUpdate)
+                {
+                    table.Status = EnumTableStatus.OCCUPIED.ToString();
+                }
+                await this._context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                this._logger.LogError(ex.ToString());
+                throw new Exception(ex.Message);
+            }
+        }
+        public async Task UpdateBulk(List<DiningTable> tables)
+        {
+            try
+            {
+                foreach (DiningTable table in tables)
+                {
+                    this._context.DiningTables.Update(table);
+                }
+                await this._context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                this._logger.LogError(ex.ToString());
+                throw new Exception(ex.Message);
             }
         }
     }

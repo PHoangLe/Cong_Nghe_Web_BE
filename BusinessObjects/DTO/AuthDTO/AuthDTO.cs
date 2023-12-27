@@ -28,7 +28,13 @@ namespace BusinessObjects.DTO.AuthDTO
         public string? Avatar { get; set; }
         public string AccessToken { get; set; }
         public Guid AccountId { get; set; }
-        public List<Permission> Permissions { get; set; } = null!;
+        public List<PermissonDto> Permissions { get; set; } = null!;
+    }
+
+    public record PermissonDto
+    {
+        public int PermissionId { get; set; }
+        public string PermissionName { get; set; } = null!;
     }
 
     public record GetAuthAccountDto
@@ -40,5 +46,12 @@ namespace BusinessObjects.DTO.AuthDTO
         public string Name { get; set; }
         public string? Avatar { get; set; }
         public bool? IsBlock { get; set; }
+    }
+
+    public record ResultValidateTokenDto
+    {
+        public string AccountId { get; set; } = null!;
+        public string Email { get; set; } = null!;
+        public string Role { get; set; } = null!;
     }
 }

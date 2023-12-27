@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.DataModels;
+using BusinessObjects.DTO.AuthDTO;
 using BusinessObjects.DTO.CategoryDTO;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,6 @@ namespace Repositories.Interfaces
     public interface IPermissionRepository
     {
         public Task<List<Permission>> GetAllPermissions();
-        public Task<List<Permission>> GetPermissionsByUserId(Guid userId);
+        public Task<List<PermissonDto>> GetPermissionsByUserId(Guid userId);
     }
 }

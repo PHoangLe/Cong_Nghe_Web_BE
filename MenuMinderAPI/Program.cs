@@ -20,7 +20,12 @@ using Services.Helpers;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+    }); ;
+
 builder.Services.AddMvc(options =>
 {
     options.Filters.Add<GlobalExceptionFilter>();
@@ -61,7 +66,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 
-// builder.Services.AddScoped<GlobalExceptionMiddleware>();
+builder.Services.AddScoped<GlobalExceptionMiddleware>();
+builder.Services.AddTransient<TokenValidationMiddleware>();
 
 // configure DI for application repositories
 builder.Services.AddScoped<DiningTableRepository, DiningTableRepository>();
@@ -81,6 +87,11 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IFoodRepository, FoodRepository>();
 builder.Services.AddScoped<IPermissionRepository, PermissionRepository>();
 builder.Services.AddScoped<IPermitRepository, PermitRepository>();
+builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
+builder.Services.AddScoped<IServingRepository, ServingRepository>();
+builder.Services.AddScoped<ITableUsedRepository, TableUsedRepository>();
+builder.Services.AddScoped<IFoodOrderRepository, FoodOrderRepository>();
+builder.Services.AddScoped<IBillRepository, BillRepository>();
 
 // configure DI for application services
 builder.Services.AddScoped<DiningTableService, DiningTableService>();
@@ -90,6 +101,11 @@ builder.Services.AddScoped<FoodService, FoodService>();
 builder.Services.AddScoped<CategoryService, CategoryService>();
 builder.Services.AddScoped<AccountService, AccountService>();
 builder.Services.AddScoped<PermissionService, PermissionService>();
+builder.Services.AddScoped<MeService, MeService>();
+builder.Services.AddScoped<ReservationService, ReservationService>();
+builder.Services.AddScoped<ServingService, ServingService>();
+builder.Services.AddScoped<FoodOrderService, FoodOrderService>();
+builder.Services.AddScoped<BillService, BillService>();
 
 var app = builder.Build();
 app.UseCors("CorsPolicy");
@@ -105,8 +121,9 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseMiddleware<TokenValidationMiddleware>();
 
-//app.UseMiddleware<GlobalExceptionMiddleware>();
+app.UseMiddleware<GlobalExceptionMiddleware>();
 
 app.MapControllers();
 

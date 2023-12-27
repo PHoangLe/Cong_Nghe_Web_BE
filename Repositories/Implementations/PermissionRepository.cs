@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BusinessObjects.DataModels;
+using BusinessObjects.DTO.AuthDTO;
 using BusinessObjects.DTO.CategoryDTO;
 using BusinessObjects.Enum;
 using Microsoft.EntityFrameworkCore;
@@ -17,11 +18,13 @@ namespace Repositories.Implementations
     {
         private readonly Menu_minder_dbContext _context;
         private readonly ILogger<PermissionRepository> _logger;
+        private readonly IMapper _mapper;
 
-        public PermissionRepository(Menu_minder_dbContext context, ILogger<PermissionRepository> logger)
+        public PermissionRepository(Menu_minder_dbContext context, ILogger<PermissionRepository> logger, IMapper mapper)
         {
             this._context = context;
             this._logger = logger;
+            this._mapper = mapper;
         }
 
         public async Task<List<Permission>> GetAllPermissions()
@@ -41,9 +44,9 @@ namespace Repositories.Implementations
             return data;
         }
 
-        public async Task<List<Permission>> GetPermissionsByUserId(Guid userId)
+        public async Task<List<PermissonDto>> GetPermissionsByUserId(Guid userId)
         {
-            List<Permission> data = new List<Permission>();
+            List<PermissonDto> data = new List<PermissonDto>();
             try
             {
                 data = await _context.Permits
@@ -53,10 +56,8 @@ namespace Repositories.Implementations
                         permit => permit.PermissionId,
                         permission => permission.PermissionId,
                         (permit, permission) => permission
-                    )
+                    ).Select(permission => this._mapper.Map<PermissonDto>(permission))
                     .ToListAsync();
-
-
             }
             catch (Exception e)
             {
