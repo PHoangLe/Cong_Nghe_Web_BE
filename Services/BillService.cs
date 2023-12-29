@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BusinessObjects.DataModels;
 using BusinessObjects.DTO.BillDTO;
 using BusinessObjects.Enum;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Repositories.Interfaces;
 
@@ -55,6 +56,12 @@ namespace Services
                 this._logger.LogError(ex.ToString());
                 throw new Exception(ex.Message);
             }
+        }
+
+        public async Task<List<BillResultDto>> GetAllBill()
+        {
+            List<BillResultDto> data = await _billRepository.GetAllBill();
+            return data;
         }
     }
 }

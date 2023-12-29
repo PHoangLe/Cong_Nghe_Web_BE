@@ -21,6 +21,20 @@ namespace BusinessObjects.DTO
         public int Capacity { get; set; }
     }
 
+    public record UpdateDiningTableDto
+    {
+        [Required]
+        public Guid CreatedBy { get; set; }
+
+        [Required]
+        public string TableNumber { get; set; }
+
+        [Required]
+        public int Capacity { get; set; }
+        [Required]
+        public string Status { get; set; }
+    }
+
     public record ResultDiningTableDto
     {
         public int TableId { get; set; }

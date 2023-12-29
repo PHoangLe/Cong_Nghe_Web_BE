@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using BusinessObjects.DTO.StatisticDTO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
+using Npgsql;
 
 namespace BusinessObjects.DataModels
 {
@@ -30,6 +32,8 @@ namespace BusinessObjects.DataModels
         public virtual DbSet<Reservation> Reservations { get; set; } = null!;
         public virtual DbSet<Serving> Servings { get; set; } = null!;
         public virtual DbSet<TableUsed> TableUseds { get; set; } = null!;
+
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

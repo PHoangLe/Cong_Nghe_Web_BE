@@ -76,6 +76,8 @@ builder.Services.AddScoped<CategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<PermissionRepository, PermissionRepository>();
 builder.Services.AddScoped<AccountRepository, AccountRepository>();
 builder.Services.AddScoped<PermitRepository, PermitRepository>();
+builder.Services.AddScoped<FeedBackRepository, FeedBackRepository>();
+builder.Services.AddScoped<StatisticRepository, StatisticRepository>();
 
 // configure DI for DBContext
 builder.Services.AddScoped<Menu_minder_dbContext, Menu_minder_dbContext>();
@@ -92,6 +94,7 @@ builder.Services.AddScoped<IServingRepository, ServingRepository>();
 builder.Services.AddScoped<ITableUsedRepository, TableUsedRepository>();
 builder.Services.AddScoped<IFoodOrderRepository, FoodOrderRepository>();
 builder.Services.AddScoped<IBillRepository, BillRepository>();
+builder.Services.AddScoped<IFeedBackRepository, FeedBackRepository>();
 
 // configure DI for application services
 builder.Services.AddScoped<DiningTableService, DiningTableService>();
@@ -106,6 +109,8 @@ builder.Services.AddScoped<ReservationService, ReservationService>();
 builder.Services.AddScoped<ServingService, ServingService>();
 builder.Services.AddScoped<FoodOrderService, FoodOrderService>();
 builder.Services.AddScoped<BillService, BillService>();
+builder.Services.AddScoped<FeedBackService, FeedBackService>();
+builder.Services.AddScoped<StatisticService, StatisticService>();
 
 var app = builder.Build();
 app.UseCors("CorsPolicy");

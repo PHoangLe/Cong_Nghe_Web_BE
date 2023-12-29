@@ -8,6 +8,7 @@ using BusinessObjects.DataModels;
 using BusinessObjects.DTO;
 using BusinessObjects.DTO.AccountDTO;
 using BusinessObjects.DTO.FoodOrderDTO;
+using BusinessObjects.Enum;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Repositories.Interfaces;
@@ -183,7 +184,7 @@ namespace Repositories.Implementations
             try
             {
                 float totalPrice = await this._context.FoodOrders
-                    .Where(tf => tf.ServingId == servingId)
+                    .Where(tf => tf.ServingId == servingId && (tf.Status == EnumFoodOrderStatus.PROCESSING.ToString() || tf.Status == EnumFoodOrderStatus.SERVED.ToString()))
                     .SumAsync(tf => tf.Quantity * tf.Price);
                 return totalPrice;
             }

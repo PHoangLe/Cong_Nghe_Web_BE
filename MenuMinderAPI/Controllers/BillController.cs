@@ -38,5 +38,24 @@ namespace MenuMinderAPI.Controllers
 
             return Ok(response);
         }
+
+        // GET: api/bill
+        [HttpGet("")]
+        public async Task<ActionResult> gettAllBill()
+        {
+            var userFromToken = new ResultValidateTokenDto
+            {
+                AccountId = HttpContext.User.FindFirstValue("AccountId"),
+                Email = HttpContext.User.FindFirstValue("Email"),
+                Role = HttpContext.User.FindFirstValue("Role"),
+            };
+
+            ApiResponse<List<BillResultDto>> response = new ApiResponse<List<BillResultDto>>();
+            List<BillResultDto> data = await _billService.GetAllBill();
+            response.data = data;
+            response.message = "Success";
+
+            return Ok(response);
+        }
     }
 }

@@ -84,7 +84,7 @@ namespace MenuMinderAPI.Controllers
 
         // PUT: api/dining-tables/{id}
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateDiningTable([FromBody] CreateDiningTableDto dataInvo, [FromRoute] int id)
+        public async Task<ActionResult> UpdateDiningTable([FromBody] UpdateDiningTableDto dataInvo, [FromRoute] int id)
         {
             ApiResponse<string> response = new ApiResponse<string>();
 

@@ -13,4 +13,10 @@ namespace BusinessObjects.DTO.BillDTO
         public int ServingId { get; set; }
         public Guid? CreatedBy { get; set; }
     }
+    public record BillResultDto
+    {
+        public int ServingId { get; set; }
+        public Guid CreatedBy { get; set; }
+        public int TotalPrice { get; set; }
+    }
 }

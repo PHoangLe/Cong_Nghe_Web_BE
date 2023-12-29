@@ -44,7 +44,7 @@ namespace Services
             await _diningTableRepository.SaveDiningTable(diningTableCreate);
         }
 
-        public async Task UpdateDiningTable(CreateDiningTableDto dataInvo, int tableId)
+        public async Task UpdateDiningTable(UpdateDiningTableDto dataInvo, int tableId)
         {
             DiningTable diningTableUpdate = await FindDiningTableEntityById(tableId);
 
@@ -58,6 +58,7 @@ namespace Services
             diningTableUpdate.TableNumber = dataInvo.TableNumber;
             diningTableUpdate.Capacity = dataInvo.Capacity;
             diningTableUpdate.UpdatedAt = DateTime.Now;
+            diningTableUpdate.Status = dataInvo.Status;
             // update data
             await _diningTableRepository.UpdateDiningTable(diningTableUpdate);
         }
