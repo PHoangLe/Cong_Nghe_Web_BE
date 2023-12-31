@@ -20,11 +20,30 @@ namespace MenuMinderAPI.Controllers
         [HttpGet("revenue")]
         public ActionResult GetRevenueReport([FromQuery] DateTime? fromDate, [FromQuery] DateTime? toDate, [FromQuery] string reportType)
         {
-            ApiResponse<List<StatisticDTO>> response = new ApiResponse<List<StatisticDTO>>();
+            ApiResponse<List<RevenueStatisticDTO>> response = new ApiResponse<List<RevenueStatisticDTO>>();
 
             try
             {
-                List<StatisticDTO> result = this._statisticService.GetRevenueReport(fromDate, toDate, reportType);
+                List<RevenueStatisticDTO> result = this._statisticService.GetRevenueReport(fromDate, toDate, reportType);
+                response.data = result;
+            }
+            catch (Exception ex)
+            {
+                response.errorMessage = ex.Message;
+                response.statusCode = (int)HttpStatusCode.BadRequest;
+            }
+
+            return Ok(response);
+        }
+
+        [HttpGet("general")]
+        public ActionResult GetRevenueReport([FromQuery] DateTime? fromDate, [FromQuery] DateTime? toDate)
+        {
+            ApiResponse<GeneralStatisticDTO> response = new ApiResponse<GeneralStatisticDTO>();
+
+            try
+            {
+                GeneralStatisticDTO result = this._statisticService.GetGeneralReport(fromDate, toDate);
                 response.data = result;
             }
             catch (Exception ex)

@@ -81,6 +81,7 @@ namespace Services
             FoodUpdate.CategoryId = dataInvo.CategoryId;
             FoodUpdate.Image = dataInvo.Image;
             FoodUpdate.Recipe = dataInvo.Recipe;
+            FoodUpdate.Status = dataInvo.Status.ToString();
             // update data
             await _foodRepository.UpdateFood(FoodUpdate);
         }

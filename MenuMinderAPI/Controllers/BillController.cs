@@ -57,5 +57,24 @@ namespace MenuMinderAPI.Controllers
 
             return Ok(response);
         }
+
+        // GET: api/bill
+        [HttpGet("{servingId}")]
+        public ActionResult gettBillDetail(int servingId)
+        {
+            var userFromToken = new ResultValidateTokenDto
+            {
+                AccountId = HttpContext.User.FindFirstValue("AccountId"),
+                Email = HttpContext.User.FindFirstValue("Email"),
+                Role = HttpContext.User.FindFirstValue("Role"),
+            };
+
+            ApiResponse<List<BillDetailDto>> response = new ApiResponse<List<BillDetailDto>>();
+            List<BillDetailDto> data = _billService.GetBillDetails(servingId);
+            response.data = data;
+            response.message = "Success";
+
+            return Ok(response);
+        }
     }
 }

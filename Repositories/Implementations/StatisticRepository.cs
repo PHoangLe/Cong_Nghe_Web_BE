@@ -33,10 +33,10 @@ namespace Repositories.Implementations
 
         
 
-        public List<StatisticDTO> GetRevenueReport(DateTime fromDate, DateTime toDate, string reportType)
+        public List<RevenueStatisticDTO> GetRevenueReport(DateTime fromDate, DateTime toDate, string reportType)
         {
             string functionName = "generate_report";
-            List<StatisticDTO> result = new List<StatisticDTO>();
+            List<RevenueStatisticDTO> result = new List<RevenueStatisticDTO>();
 
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
@@ -59,7 +59,43 @@ namespace Repositories.Implementations
                                 DateTime reportDate = (DateTime) reader["report_date"];
                                 long totalRevenue = (long) reader["total_revenue"];
 
-                                result.Add(new StatisticDTO(reportDate, totalRevenue));
+                                result.Add(new RevenueStatisticDTO(reportDate, totalRevenue));
+                            }
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+
+        public GeneralStatisticDTO GetGeneralReport(DateTime fromDate, DateTime toDate)
+        {
+            string functionName = "general_statistic";
+            GeneralStatisticDTO result = null;
+
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                using (NpgsqlCommand command = new NpgsqlCommand(functionName, connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("p_from_date", fromDate);
+                    command.Parameters.AddWithValue("p_to_date", toDate);
+
+                    connection.Open();
+
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                long servingCount = (long)reader["serving_count"];
+                                long customerCount = (long)reader["customer_count"];
+                                decimal restaurantRating = (decimal)reader["restaurant_rating"];
+                                long feedbackCount = (long)reader["feedback_count"];
+
+                                result = new GeneralStatisticDTO(servingCount, customerCount, restaurantRating, feedbackCount);
                             }
                         }
                     }

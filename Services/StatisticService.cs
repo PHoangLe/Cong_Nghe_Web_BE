@@ -22,10 +22,16 @@ namespace Services
             _logger = logger;
         }
 
-        public List<StatisticDTO> GetRevenueReport(DateTime? fromDate, DateTime? toDate, string reportType)
+        public List<RevenueStatisticDTO> GetRevenueReport(DateTime? fromDate, DateTime? toDate, string reportType)
         {
             DateTime now = DateTime.Now;
             return _statisticRepository.GetRevenueReport(fromDate.GetValueOrDefault(now.AddDays(-30)), toDate.GetValueOrDefault(now), reportType);
+        }
+
+        public GeneralStatisticDTO GetGeneralReport(DateTime? fromDate, DateTime? toDate)
+        {
+            DateTime now = DateTime.Now;
+            return _statisticRepository.GetGeneralReport(fromDate.GetValueOrDefault(now.AddDays(-30)), toDate.GetValueOrDefault(now));
         }
     }
 }

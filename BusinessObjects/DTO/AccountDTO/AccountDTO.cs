@@ -22,6 +22,7 @@ namespace BusinessObjects.DTO.AccountDTO
 
         [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; } = null!;
+        public string Avatar { get; set; } = null!;
         public bool? Gender { get; set; }
         public string? PhoneNumber { get; set; }
         public int[]? PermissionIds { get; set; }
@@ -61,6 +62,7 @@ namespace BusinessObjects.DTO.AccountDTO
         public string Role { get; set; } = null!;
         public string Email { get; set; } = null!;
         public string Name { get; set; } = null!;
+        public bool? Gender { get; set; }
         public string? PhoneNumber { get; set; }
         public bool IsBlock { get; set; }
         public string? Avatar { get; set; }

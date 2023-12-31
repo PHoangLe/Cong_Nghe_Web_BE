@@ -19,4 +19,25 @@ namespace BusinessObjects.DTO.BillDTO
         public Guid CreatedBy { get; set; }
         public int TotalPrice { get; set; }
     }
+    public record BillDetailDto
+    {
+        public int FoodId { get; set; }
+        public string Name { get; set; }
+        public string image { get; set; }
+        public int quantity { get; set; }
+        public int price { get; set; }
+        public string status { get; set; }
+        public DateTime updateAt { get; set; }
+
+        public BillDetailDto(int foodId, string name, string image, int quantity, int price, string status, DateTime updateAt)
+        {
+            FoodId = foodId;
+            Name = name;
+            this.image = image;
+            this.quantity = quantity;
+            this.price = price;
+            this.status = status;
+            this.updateAt = updateAt;
+        }
+    }
 }

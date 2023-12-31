@@ -40,6 +40,7 @@ namespace Services
                 accountCreate.Email = dataInvo.Email;
                 accountCreate.Password = dataInvo.Password;
                 accountCreate.Gender = dataInvo.Gender;
+                accountCreate.Avatar = dataInvo.Avatar;
                 accountCreate.Name = dataInvo.Name;
                 accountCreate.PhoneNumber = dataInvo.PhoneNumber;
 
@@ -160,9 +161,15 @@ namespace Services
                     existAccount.PhoneNumber = updateAccountDTO?.PhoneNumber ?? existAccount.PhoneNumber;
                     existAccount.Name = updateAccountDTO?.Name ?? existAccount.Name;
                     existAccount.Gender = updateAccountDTO?.Gender ?? existAccount.Gender;
+                    existAccount.Avatar = updateAccountDTO?.Avatar ?? existAccount.Avatar;
                     existAccount.DateOfBirth = updateAccountDTO?.DateOfBirth ?? existAccount.DateOfBirth;
                     existAccount.IsBlock = updateAccountDTO?.IsBlock ?? existAccount.IsBlock;
                     existAccount.UpdatedAt = DateTime.Now;
+
+                if (updateAccountDTO?.PermissionIds != null)
+                {
+                    await updateAccountPermits(existAccount.AccountId.ToString(), updateAccountDTO.PermissionIds.ToList());
+                }
 
                 if(existAccount != null)
                     await _accountRepository.UpdateAccount(existAccount);

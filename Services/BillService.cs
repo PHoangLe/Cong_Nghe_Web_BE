@@ -63,5 +63,11 @@ namespace Services
             List<BillResultDto> data = await _billRepository.GetAllBill();
             return data;
         }
+
+        public List<BillDetailDto> GetBillDetails(int servingId)
+        {
+            return _billRepository.GetBillDetails(servingId);
+        }
+
     }
 }

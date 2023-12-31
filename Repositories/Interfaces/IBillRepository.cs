@@ -14,5 +14,6 @@ namespace Repositories.Interfaces
     {
         public Task InsertBill(Bill billCreate);
         public Task<List<BillResultDto>> GetAllBill();
+        public List<BillDetailDto> GetBillDetails(int servingId);
     }
 }
